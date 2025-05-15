@@ -1,0 +1,89 @@
+    body {
+      background-color: F8F8F8;
+    }
+    h1 {
+      color: #000;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: #6D6E71;
+      font-family: Inter;
+      font-size: 80px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%; /* 112px */
+      letter-spacing: -1.6px;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -350%);
+    }
+    img {
+      width: 33px;
+      height: 33px;
+      margin-right: 0.5rem;
+      padding-bottom: 10px;
+      padding-top: 10px;
+    }
+    input {
+      height: 33px;
+      border: none;
+      width: 500px;
+      padding-bottom: 10px;
+      padding-top: 10px;
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%; /* 33.6px */
+      letter-spacing: -0.48px;
+      cursor: pointer;
+      outline: none;
+    }
+    .id , .password {
+      display: flex;
+      border-bottom: 4px solid #444;
+      width: 536px;
+    }
+    .id {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -200%);
+    }
+    .password {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -100%);
+    }
+    hr {
+      width: 536px;
+    }
+    button {
+      width: 575px;
+      height: 58px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 2px 2px 20px 4px rgba(134, 134, 134, 0.1);
+      color: #000;
+      text-align: center;
+      /* Title1/Bold/24px */
+      font-size: 24px;
+      font-style: normal;
+      font-weight: 700;
+      line-height: 140%; /* 33.6px */
+      letter-spacing: -0.48px;
+      cursor: pointer;
+    }
+    #login {
+      background-color: #DAE145;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, 50%);
+    }
+    #signup {
+      background-color: #fff;
+      position: absolute;
+      bottom: 50%;
+      left: 50%;
+      transform: translate(-50%, 270%);
+    }
