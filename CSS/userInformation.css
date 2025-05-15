@@ -32,7 +32,7 @@ img {
 }
 
 #img {
-    display: flex;
+  display: flex;
   width: 408px;
   height: 302px;
   flex-shrink: 0;
@@ -43,6 +43,8 @@ img {
   align-items: center;
 }
 .information {
+  width: 388px !important;
+  padding-right: 0px;
   text-align: left;
   padding-left: 20px;
   padding-top: 13px;
