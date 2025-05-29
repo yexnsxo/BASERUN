@@ -11,16 +11,24 @@
     <form>
       <div class="id">
         <img src="img/Group.svg" />
-        <input type="text" placeholder="아이디" />
+        <input type="text" placeholder="아이디" required />
       </div>
       <div class="password">
         <img src="img/cil_baseball.svg" />
-        <input type="password" placeholder="비밀번호" />
+        <input type="password" placeholder="비밀번호" required />
       </div>
       <div class="btn">
         <button id="login" type="submit">로그인</button><br />
-        <button id="signup" type="button">회원가입</button>
+        <a id="signup" href="signup.html">회원가입</a>
       </div>
     </form>
+    <script>
+      const login = document.getElementById("login");
+
+      login.addEventListener("click", function () {
+        event.preventDefault();
+        window.location.href = "../BASERUN2/html/mainpage.html"; // 메인 페이지 연결
+      });
+    </script>
   </body>
 </html>
