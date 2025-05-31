@@ -1,52 +1,213 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>회원 정보</title>
-  <link rel="stylesheet" href="CSS/userInformation.css">
-</head>
-<body>
-  <header>
-    <h1>BASERUN</h1>
-    <div id="head-btn">
-      <a href="main.html"
-        ><img src="img/home.svg" style="width: 27px; height: 30px"
-      /></a>
-      <a href="userPage.html"
-        ><img src="img/mypage.svg" style="width: 27px; height: 30px"
-      /></a>
-      <button id="menu-btn" type="button">
-        <img src="img/menu.svg" style="width: 27px; height: 30px" />
-      </button>
-    </div>
-  </header>
-  <div id="content">
-    <div id="btns">
-      <button type="button" class="button" style="background-color: #1d4d9f; color: #fff; margin-right: 10px;">회원 정보</button>
-      <button type="button" class="button">개인 정보 수정</button>
-    </div>
-    <p class="information">이름: 베런</p>
-    <p class="information">이메일: ABC@gmail.com</p>
-    <p class="information">전화번호: 010-1234-5678</p>
-    <p class="information" id="choice">선택구단: 롯데 자이언츠</p>
-    <div id="group">
-      <div id="img">
-      <img src="img/LotteGiants_logo.svg">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원 정보</title>
+    <link rel="stylesheet" href="CSS/userInformation.css" />
+  </head>
+  <body>
+    <header>
+      <h1>BASERUN</h1>
+      <div id="head-btn">
+        <a href="main.html"
+          ><img src="img/home.svg" style="width: 27px; height: 30px"
+        /></a>
+        <a href="userPage.html"
+          ><img src="img/mypage.svg" style="width: 27px; height: 30px"
+        /></a>
+        <button id="menu-btn" type="button">
+          <img src="img/menu.svg" style="width: 27px; height: 30px" />
+        </button>
       </div>
-      <button type="button" class="button">구단 변경</p>
+    </header>
+    <div id="content">
+      <div id="btns">
+        <button
+          type="button"
+          class="button"
+          style="background-color: #1d4d9f; color: #fff; margin-right: 10px"
+        >
+          회원 정보
+        </button>
+        <button type="button" class="button" id="edit">개인 정보 수정</button>
+      </div>
+      <p class="information" id="username"></p>
+      <p class="information" id="email">이메일을 입력해주세요</p>
+      <p class="information" id="phone">전화번호를 입력해주세요</p>
+      <p class="information" id="choice">선택된 구단이 없습니다.</p>
+      <div id="group">
+        <div id="img"></div>
+        <select
+          type="button"
+          class="button"
+          style="appearance: none"
+          id="team-select"
+          onchange="changeTeam(this.value)"
+        >
+          <option value="">구단 선택</option>
+          <option value="kia">기아 타이거즈</option>
+          <option value="samsung">삼성 라이온즈</option>
+          <option value="lg">엘지 트윈스</option>
+          <option value="lotte">롯데 자이언츠</option>
+          <option value="nc">NC 다이노스</option>
+          <option value="kt">KT 위즈</option>
+          <option value="kiwoon">키움 히어로즈</option>
+          <option value="hanhwa">한화 이글스</option>
+          <option value="doosan">두산 베어스</option>
+          <option value="ssg">SSG 랜더스</option>
+        </select>
+      </div>
     </div>
-  </div>
-  <footer>
-    <hr />
-    <p class="footer-content">
-      문의: help@baserun.com | 070-1234-5678 | 운영시간: 평일 10:00 ~ 18:00<br />
-      © 2025 BASERUN Inc. All rights reserved. | 대표: 홍길동 |
-      사업자등록번호: 123-45-67890
-    </p>
-  </footer>
-  <script>
+    <footer>
+      <hr />
+      <p class="footer-content">
+        문의: help@baserun.com | 070-1234-5678 | 운영시간: 평일 10:00 ~ 18:00<br />
+        © 2025 BASERUN Inc. All rights reserved. | 대표: 홍길동 |
+        사업자등록번호: 123-45-67890
+      </p>
+    </footer>
+    <script>
+      function getCookie(name) {
+        const cookies = document.cookie.split("; ");
+        for (const row of cookies) {
+          const [key, value] = row.split("=");
+          if (key == name) return decodeURIComponent(value);
+        }
+        return null;
+      }
+      function setCookie(name, value, expireDate) {
+        const date = new Date();
+        date.setTime(date.getTime() + expireDate * 24 * 60 * 60 * 1000);
+        document.cookie =
+          name +
+          "=" +
+          encodeURIComponent(value) +
+          "; expires=" +
+          date.toUTCString() +
+          "; path=/";
+      }
+      window.onload = function () {
+        const username = getCookie("username");
+        const email = getCookie("email");
+        const phone = getCookie("phone");
+        const team = getCookie("team");
 
-  </script>
-</body>
+        const usernameElement = document.getElementById("username");
+        if (!username) {
+          alert("회원가입 정보가 없습니다.");
+          window.location.href = "signup.html";
+          return false;
+        }
+        document.getElementById("username").innerText = "이름: " + username;
+
+        const emailElement = document.getElementById("email");
+        if (!email) {
+          const inputEmail = prompt(
+            "이메일을 입력해주세요 (예: example@gmail.com)"
+          );
+          if (inputEmail) {
+            setCookie("email", inputEmail, 365);
+            emailElement.innerText = "이메일: " + inputEmail;
+          } else {
+            emailElement.innerText = "이메일을 입력하지 않으셨습니다";
+          }
+        } else {
+          emailElement.innerText = "이메일: " + email;
+        }
+
+        const phoneElement = document.getElementById("phone");
+        if (phone === null) {
+          const inputPhone = prompt(
+            "전화번호를 입력해주세요 (예: 010-1234-5678)"
+          );
+          if (inputPhone) {
+            setCookie("phone", inputPhone, 365);
+            phoneElement.innerText = "전화번호: " + inputPhone;
+          } else {
+            phoneElement.innerText = "전화번호를 입력하지 않으셨습니다";
+          }
+        } else {
+          phoneElement.innerText = "전화번호: " + phone;
+        }
+
+        if (team) {
+          changeTeam(team);
+        }
+        const editBtn = document.getElementById("edit");
+        editBtn.addEventListener("click", function () {
+          const inputUsername = prompt("이름을 입력해주세요");
+          if (inputUsername) {
+            setCookie("username", inputUsername, 365);
+            usernameElement.innerText = "이름: " + inputUsername;
+          } else {
+            usernameElement.innerText = "이름을 입력하지 않으셨습니다.";
+          }
+          const inputEmail = prompt(
+            "이메일을 입력해주세요 (예: example@gmail.com)"
+          );
+          if (inputEmail) {
+            setCookie("email", inputEmail, 365);
+            emailElement.innerText = "이메일: " + inputEmail;
+          } else {
+            emailElement.innerText = "이메일을 입력하지 않으셨습니다.";
+          }
+          const inputPhone = prompt(
+            "전화번호를 입력해주세요 (예: 010-1234-5678)"
+          );
+          if (inputPhone) {
+            setCookie("phone", inputPhone, 365);
+            phoneElement.innerText = "전화번호: " + inputPhone;
+          } else {
+            phoneElement.innerText = "전화번호를 입력하지 않으셨습니다.";
+          }
+        });
+      };
+      function changeTeam(team) {
+        const nameMap = {
+          lotte: "롯데 자이언츠",
+          samsung: "삼성 라이온즈",
+          doosan: "두산 베어스",
+          kt: "KT 위즈",
+          kiwoon: "키움 히어로즈",
+          hanhwa: "한화 이글스",
+          lg: "엘지 트윈스",
+          nc: "NC 다이노스",
+          ssg: "SSG 랜더스",
+          kia: "기아 타이거즈",
+        };
+
+        const logoMap = {
+          lotte: "BASERUN2/asset/giants.svg",
+          doosan: "BASERUN2/asset/doosan.svg",
+          hanhwa: "BASERUN2/asset/eagles.svg",
+          kia: "BASERUN2/asset/kia.svg",
+          kiwoon: "BASERUN2/asset/kiwoom.svg",
+          kt: "BASERUN2/asset/kt.svg",
+          lg: "BASERUN2/asset/LG.svg",
+          nc: "BASERUN2/asset/NC.svg",
+          samsung: "BASERUN2/asset/samsung.svg",
+          ssg: "BASERUN2/asset/ssg.svg",
+        };
+
+        if (team && nameMap[team] && logoMap[team]) {
+          setCookie("team", team, 365);
+          document.getElementById("choice").innerText =
+            "선택구단: " + nameMap[team];
+          const imgContainer = document.getElementById("img");
+          let logoImg = document.getElementById("team-logo");
+
+          // 없으면 새로 생성
+          if (!logoImg) {
+            logoImg = document.createElement("img");
+            logoImg.id = "team-logo";
+            imgContainer.appendChild(logoImg);
+          }
+          logoImg.src = logoMap[team];
+          logoImg.alt = nameMap[team];
+          document.getElementById("team-select").value = "";
+        }
+      }
+    </script>
+  </body>
 </html>
